@@ -1,0 +1,15 @@
+from django.urls import path
+from .views import *
+
+index = IndexView.as_view()
+searched_movies = SearchedMovieView.as_view()
+notices = NoticeListView.as_view()
+notice_detail = NoticeDetailView.as_view()
+
+
+urlpatterns = [
+    path('', index, name='index'),
+    path('searched_movies', searched_movies, name='searched_movies'),
+    path('notices', notices, name='notices'),
+    path('notices/<str:id>', notice_detail, name='notice_detail')
+]

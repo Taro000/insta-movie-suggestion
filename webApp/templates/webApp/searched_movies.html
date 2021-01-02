@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+{% load static %}
+
+{% block contents %}
+    <div class="container">
+        <form class="form-inline search-form" method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">検索</button>
+        </form>
+        {% if page_obj.object_list %}
+            <p class="text-gray">ヒット数：{{ page_obj.count }}, ページ数：{{ page_obj.num_pages }}</p>
+        {% endif %}
+        {% if not page_obj.object_list %}
+            <div class="col-12 text-center">
+                <p class="text-gray">作品がありません。</p>
+            </div>
+        {% endif %}
+        <ul class="movie-ul">
+            {% for movie in page_obj.object_list %}
+                <li class="movie-li py-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-2">
+                            <div style="height:150px; width: 100%; background-image: url('{{ media_url }}{{ movie.img_path }}'); background-repeat: no-repeat; background-size:cover; background-position:center;"></div>
+                        </div>
+                        <div class="col-md-10 px-5">
+                            <h4 class="text-white">{{ movie.title|truncatechars:25 }}</h4>
+                            <h6 class="text-gray">{{ movie.year }}</h6>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <p class="text-gray">ヒット数：{{ page_obj.count }}, ページ数：{{ page_obj.num_pages }}</p>
+        <nav area-label="Page navigation" style="background-color: rgb(37, 39, 40)">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a href="?page=1" class="page-link" area-label="Previous">
+                        <span area-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% if page_obj.has_previous %}
+                    <li class="page-item active"><a href="?page={{ page_obj.previous_page_number }}" class="page-link seemore-a">{{ page_obj.previous_page_number }}</a></li>
+                {% endif %}
+                <li class="page-item"><a href="?page={{ page_obj.number }}" class="page-link seemore-a">{{ page_obj.number }}</a></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link seemore-a">{{ page_obj.next_page_number }}</a></li>
+                {% endif %}
+                <li class="page-item">
+                    <a href="?page={{ page_obj.num_pages }}" class="page-link seemore-a"  area-label="Next">
+                        <span area-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

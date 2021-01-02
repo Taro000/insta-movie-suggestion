@@ -1,0 +1,93 @@
+body {
+    background-color: rgb(37, 39, 40);
+}
+
+.netflix-li {
+    background-color: rgb(203, 47, 33);
+    color: rgb(244, 244, 244);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.prime-li {
+    background-color: rgb(72, 161, 212);
+    color: rgb(244, 244, 244);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+.movie-li {
+    border-top: solid 0.5px rgb(153, 153, 153);
+    border-bottom: solid 0.5px rgb(153, 153, 153);
+}
+
+.notice-li {
+    border: solid 0.5px rgb(153, 153, 153);
+    background-color: rgb(37, 39, 40);
+}
+
+.notice-li:hover {
+    border: solid 0.5px rgb(237, 136, 78);
+    box-shadow: 0 0 8px 0 rgb(237, 136, 78);
+}
+
+.movie-ul {
+    padding-left: 0;
+}
+
+.logo-text {
+    color: rgb(237, 136, 78);
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.search-form input {
+    width: 100%;
+    background-color: rgb(153, 153, 153);
+    border: 0.2px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    height: 45px;
+}
+
+.search-form input:focus {
+    border: 0.2px solid rgb(237, 136, 78);
+    box-shadow: 0 0 8px 0 rgb(237, 136, 78);
+}
+
+.search-form p {
+    width: 80%;
+    background-color: rgb(37, 39, 40);
+    margin: 0;
+}
+
+.search-form button {
+    background-color: rgb(153, 153, 153);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    height: 45px;
+}
+
+.search-form button:hover {
+    background-color: rgb(237, 136, 78);
+    color: rgb(244, 244, 244);
+}
+
+.text-white {
+    color: rgb(244, 244, 244);
+}
+
+.text-gray {
+    color: rgb(153, 153, 153);
+}
+
+.text-hover-orange:hover {
+    color: rgb(237, 136, 78);
+}
