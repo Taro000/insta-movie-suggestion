@@ -6,6 +6,8 @@ from .forms import *
 from django.urls import reverse_lazy, reverse
 from django.conf import settings
 from django.db.models import Q
+from .image_edit import *
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -54,37 +56,32 @@ class SearchedMovieView(ListView, FormView):
         self.success_url = reverse_lazy('searched_movies') + f'?keyword={sent_keyword}'
         return super().form_valid(form)
 
-    # def get(self, request, *args, **kwargs):
-    #     application_id = '1053227171354478236'
-    #     keyword = request.GET.get('keyword')
-    #     if request.GET.get('page'):
-    #         page = request.GET.get('page')
-    #         api_url = f'https://app.rakuten.co.jp/services/api/BooksDVD/Search/20170404?format=json&title={keyword}&booksGenreId=003&applicationId={application_id}&page={page}'
-    #     else:
-    #         api_url = f'https://app.rakuten.co.jp/services/api/BooksDVD/Search/20170404?format=json&title={keyword}&booksGenreId=003&applicationId={application_id}'
-    #     response = requests.get(api_url)
-    #     res_json = response.json()
-    #     print(keyword)
-    #
-    #     movies = []
-    #     for item in res_json['Items']:
-    #         item_body = item['Item']
-    #         movie = {
-    #             'title': item_body['title'],
-    #             'imageUrl': item_body['largeImageUrl'],
-    #             'derector': item_body['artistName'].split('/')[-1],
-    #             'jancode': item_body['jan'],
-    #         }
-    #         movies.append(movie)
-    #     print(movies)
-    #     return render(request, 'webApp/searched_movies.html', {
-    #         'movies': movies,
-    #         'keyword': keyword,
-    #         'count': res_json['count'],
-    #         'page': res_json['page'],
-    #         'pageCount': res_json['pageCount'],
-    #         'form': self.form_class,
-    #     })
+
+class StoryMovieView(DetailView):
+    model = Movie
+    template_name = 'webApp/movie_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        movie = Movie.objects.get(id=self.kwargs['pk'])
+        context['default_img'] = make_normal_story(movie.img_path, movie.title, movie.year)
+
+    def post(self, request, *args, **kwargs):
+        story_code = request.POST.get('story_code', None)
+        return self.ajax_response(story_code, self.kwargs['pk'])
+
+    def ajax_response(self, story_code, movie_id):
+        movie = Movie.objects.get(id=movie_id)
+        if story_code == 'normal':
+            base64_img = make_normal_story(movie.img_path, movie.title, movie.year)
+        elif story_code == 'cover':
+            base64_img = make_cover_story(movie.img_path, movie.title, movie.year)
+        elif story_code == 'black':
+            base64_img = make_black_story(movie.img_path, movie.title, movie.year)
+        elif story_code == 'white':
+            base64_img = make_white_story(movie.img_path, movie.title, movie.year)
+        return HttpResponse(base64_img, content_type='image/PNG')
 
 
 # notices.html

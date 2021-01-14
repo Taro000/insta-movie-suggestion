@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+{% block contents %}
+    <div class="container">
+        <img id="story_image">
+        <ul class="story_menu">
+            <li class="story_button"><button type="submit" onclick="ajaxImage('normal')">スタイル１</button></li>
+            <li class="story_button"><button type="submit" onclick="ajaxImage('cover')">スタイル２</button></li>
+            <li class="story_button"><button type="submit" onclick="ajaxImage('black')">ブラック</button></li>
+            <li class="story_button"><button type="submit" onclick="ajaxImage('white')">ホワイト</button></li>
+        </ul>
+    </div>
+{% endblock %}
+{% block custome_js %}
+    <script>
+        function ajaxImage(story_code) {
+            function parse_cookies() {
+                var cookies = {};
+                if (document.cookie && document.cookie !== '') {
+                    document.cookie.split(';').forEach(function (c) {
+                        var m = c.trim().match(/(\w+)=(.*)/);
+                        if (m !== undefined) {
+                            cookies[m[1]] = decodeURIComponent(m[2]);
+                        }
+                    });
+                }
+                return cookies
+            }
+            var cookies = parse_cookies();
+            console.log(cookies);
+            var storyCode = {'story_code': story_code};
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST", "/searched_movies/"+{{ movie.id }});
+            xhr.setRequestHeader('X-CSRFToken', cookies['csrftoken']);
+            xhr.send({storyCode});
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    alert('status code is 200. \n Your responseText is: ' + xhr.responseText);
+                }
+                else if (xhr.status !== 200) {
+                    alert('Request failed.  Returned status of ' + xhr.status);
+                }
+            };
+        }
+    </script>
+{% endblock %}

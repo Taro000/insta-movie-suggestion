@@ -34,16 +34,18 @@
                 </div>
             </li>
             {% for notice in notice_list %}
-                <li class="list-group-item notice-li mb-1">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h5 class="text-gray no-margin">{{ notice.title|truncatechars:10 }}</h5>
+                <a href="{% url 'notice_detail' notice.id %}">
+                    <li class="list-group-item notice-li mb-1">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="text-gray no-margin">{{ notice.title|truncatechars:10 }}</h5>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="text-gray no-margin">{{ notice.updated_at|date:'Y-m-d' }}</p>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <p class="text-gray no-margin">{{ notice.updated_at|date:'F d, Y' }}</p>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                </a>
             {% endfor %}
             <li class="mt-2">
                 <a href="{% url 'notices' %}"><p class="text-right text-gray text-hover-orange no-margin">もっとみる...</p></a>

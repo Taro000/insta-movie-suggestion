@@ -4,7 +4,7 @@
 
 {% block contents %}
     <div class="container">
-        <form class="form-inline search-form" method="post">{% csrf_token %}
+        <form class="form-inline search-form my-5" method="post">{% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn">検索</button>
         </form>

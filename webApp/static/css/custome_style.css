@@ -2,6 +2,10 @@ body {
     background-color: rgb(37, 39, 40);
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .netflix-li {
     background-color: rgb(203, 47, 33);
     color: rgb(244, 244, 244);
@@ -90,4 +94,10 @@ body {
 
 .text-hover-orange:hover {
     color: rgb(237, 136, 78);
+}
+
+.story_menu {
+    overflow-x: auto;
+    display: flex;
+    -webkit-overflow-scrolling: touch;
 }
