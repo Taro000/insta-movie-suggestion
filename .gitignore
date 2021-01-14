@@ -2,6 +2,6 @@ venv
 
 .idea
 
-MovieSuggetion/local_settings.py
+/MovieSuggetion/local_settings.py
 
 db.sqlite3
