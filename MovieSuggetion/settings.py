@@ -82,11 +82,6 @@ WSGI_APPLICATION = 'MovieSuggetion.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'MSdb',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'host',
-        'PORT': '',
     }
 }
 
