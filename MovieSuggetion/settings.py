@@ -23,7 +23,7 @@ PROJECT_NAME = os.path.basename(BASE_DIR)
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
@@ -128,7 +128,7 @@ except ImportError:
     pass
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if not DEBUG:
+if DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku
     django_heroku.settings(locals())
@@ -144,7 +144,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-if not DEBUG:
+if DEBUG:
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
