@@ -112,50 +112,50 @@ USE_TZ = True
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-if not DEBUG:
-    SECRET_KEY = os.environ['SECRET_KEY']
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-    # Database
-    # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        }
-    }
-
-    db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-    DATABASES['default'].update(db_from_env)
-
-    import django_heroku
-
-    django_heroku.settings(locals())
-else:
-    try:
-        from .local_settings import *
-    except ImportError:
-        pass
-# SECRET_KEY = os.environ['SECRET_KEY']
-# AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-# AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-# AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-# # Database
-# # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# if not DEBUG:
+#     SECRET_KEY = os.environ['SECRET_KEY']
+#     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+#     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+#     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+#     # Database
+#     # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 #
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         }
 #     }
-# }
 #
-# db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-# DATABASES['default'].update(db_from_env)
+#     db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#     DATABASES['default'].update(db_from_env)
 #
-# import django_heroku
+#     import django_heroku
 #
-# django_heroku.settings(locals())
+#     django_heroku.settings(locals())
+# else:
+#     try:
+#         from .local_settings import *
+#     except ImportError:
+#         pass
+SECRET_KEY = os.environ['SECRET_KEY']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    }
+}
+
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_from_env)
+
+import django_heroku
+
+django_heroku.settings(locals())
 
 
 # Static files (CSS, JavaScript, Images)
