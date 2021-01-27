@@ -30,6 +30,7 @@ class IndexView(TemplateView, FormView):
         context = super().get_context_data(**kwargs)
 
         context['notice_list'] = Notice.objects.order_by('-updated_at')[:5]
+        context['movie_list'] = Movie.objects.order_by('-updated_at')[:5]
         context['num_movie'] = Movie.objects.count()
         return context
 

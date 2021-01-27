@@ -54,6 +54,24 @@
             <a href="{% url 'notices' %}"><p class="text-right text-gray text-hover-orange no-margin">もっとみる...</p></a>
         </li>
     </ul>
+    <h4 class="text-center mt-5 pt-5 text-gray">最近追加された作品</h4>
+    <ul class="movie-ul my-5">
+        {% for movie in movie_list %}
+            <li class="movie-li py-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <div style="height: 370px; width: 100%; background-image: url('{{ media_url }}{{ movie.img_path }}'); background-repeat: no-repeat; background-size:cover; background-position:center;"></div>
+                    </div>
+                    <div class="col-md-8 px-5">
+                        <a href="{% url 'movie_detail' movie.id %}?keyword={{ keyword }}">
+                            <h4 class="text-white">{{ movie.title|truncatechars:25 }}</h4>
+                            <h6 class="text-gray">{{ movie.year }}</h6>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
 <footer>
     <div class="container">
