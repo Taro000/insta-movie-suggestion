@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.mail import BadHeaderError, EmailMessage
 from django.http import HttpResponse
 import textwrap
+from .models import *
 
 
 CONTACT_FORM_CATEGORY = (
@@ -15,6 +16,11 @@ CONTACT_FORM_CATEGORY = (
 
 class SearchMovieForm(forms.Form):
     keyword = forms.CharField(label='', max_length=256)
+
+
+class MovieForm(forms.Form):
+    model = Movie
+    fields = ('id', 'title', 'title_ja', 'year', 'imdb_id', 'img_path', 'created_at', 'updated_at')
 
 
 class ContactForm(forms.Form):

@@ -10,6 +10,7 @@ movie_detail_cover = StoryMovieCoverView.as_view()
 movie_detail_black = StoryMovieBlackView.as_view()
 movie_detail_white = StoryMovieWhiteView.as_view()
 contact_us = ContactUsView.as_view()
+movies = MovieView.as_view()
 
 
 urlpatterns = [
@@ -21,5 +22,6 @@ urlpatterns = [
     path('searched_movies/<str:pk>/white', movie_detail_white, name='movie_detail_white'),
     path('notices', notices, name='notices'),
     path('notices/<str:pk>', notice_detail, name='notice_detail'),
-    path('contact_us', contact_us, name='contact_us')
+    path('contact_us', contact_us, name='contact_us'),
+    path('movies', movies, name='movies')
 ]

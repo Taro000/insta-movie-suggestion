@@ -7,7 +7,10 @@ from django.urls import reverse_lazy, reverse
 from django.conf import settings
 from django.db.models import Q
 from .image_edit import *
+from django.utils import timezone
 from django.http import HttpResponse, QueryDict
+import requests
+from django.conf import settings
 
 # Create your views here.
 
@@ -143,12 +146,29 @@ class NoticeDetailView(DetailView):
     model = Notice
 
 
+URL = "https://movies-tvshows-data-imdb.p.rapidapi.com/"
+HEADERS = {
+    'x-rapidapi-host': "movies-tvshows-data-imdb.p.rapidapi.com",
+    'x-rapidapi-key': "a2e6923e42mshe46d641ef91af7cp1282bdjsn5a245a9c582c"
+    }
+
+
 # for Movie Model
 class MovieView(CreateView):
     model = Movie
+    form_class = MovieForm
 
     def post(self, request, *args, **kwargs):
-        pass
+        request.POST.get['created_at'] = timezone.datetime.now()
+        request.POST.get['updated_at'] = timezone.datetime.now()
+
+        querystring = {"imdb": f"{request.POST['imdb_id']}", "type": "get-movies-images-by-imdb"}
+        response = requests.request("GET", URL, headers=HEADERS, params=querystring)
+        request.data['img_path'] = response.content
+        request.data['img_path'].name = os.path.join(os.path.join(settings.MEDIA_ROOT, 'image'), f'{uuid.uuid4()}.png')
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
 
 
 class ContactUsView(FormView):

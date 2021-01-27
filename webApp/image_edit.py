@@ -45,7 +45,8 @@ def make_normal_story(img_path, title, year):
     poster = Image.open(img_path)
     copied_poster = poster.copy()
     w, h = copied_poster.size
-    resized_poster = copied_poster.resize((int(w/4), int(h/4)))
+    resized_h = (h * 500) // w
+    resized_poster = copied_poster.resize((int(500), int(resized_h)))
     poster_w, poster_h = resized_poster.size
     backbground_w, backbground_h = backbground_img.size
     print(resized_poster.size)
@@ -85,7 +86,8 @@ def make_cover_story(img_path, title, year):
     backbground_img = backbground_img.point(lambda x: x * 0.5)
     backbground_img = backbground_img.filter(ImageFilter.GaussianBlur(4))
 
-    resized_poster_2 = copied_poster_2.resize((int(w / 4), int(h / 4)))
+    resized_h = (h * 500) // w
+    resized_poster_2 = copied_poster_2.resize((int(500), int(resized_h)))
     poster_w, poster_h = resized_poster_2.size
     backbground_w, backbground_h = backbground_img.size
     white_img = Image.new('RGB', (poster_w + 50, poster_h + 50), 'white')
@@ -120,7 +122,8 @@ def make_black_story(img_path, title, year):
     poster = Image.open(img_path)
     copied_poster = poster.copy()
     w, h = copied_poster.size
-    resized_poster = copied_poster.resize((int(w / 4), int(h / 4)))
+    resized_h = (h * 500) // w
+    resized_poster = copied_poster.resize((int(500), int(resized_h)))
     black = Image.open(os.path.join(settings.MEDIA_ROOT, "black_00062.jpg"))
     background_img = black.copy()
     poster_w, poster_h = resized_poster.size
@@ -154,7 +157,8 @@ def make_white_story(img_path, title, year):
     poster = Image.open(img_path)
     copied_poster = poster.copy()
     w, h = copied_poster.size
-    resized_poster = copied_poster.resize((int(w / 4), int(h / 4)))
+    resized_h = (h * 500) // w
+    resized_poster = copied_poster.resize((int(500), int(resized_h)))
     poster_w, poster_h = resized_poster.size
     # shadow = Image.open('/Users/shintarotakahashi/PycharmProjects/MovieSuggetion/media/shadow.jpg')
     # copied_shadow = shadow.copy()
