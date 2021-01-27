@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+{% load static %}
+
+{% block contents %}
+    <div class="container">
+        <h2 class="text-center text-gray my-5">お問い合わせ</h2>
+        <form method="POST">{% csrf_token %}
+            {% for item in form %}
+                <div class="form-group">
+                    {% if  not forloop.last %}
+                        {% if item.field.widget.input_type == 'select' %}
+                            <label class="text-gray" for="{{ item.id_for_label }}">{{ item.label }}</label>
+                            <select type="{{ item.field.widget.input_type }}"
+                                   class="contact-input"
+                                   {% if item.field.required %}required{% endif %}
+                                   name="{{ item.name }}"
+                                    id="{{ item.id_for_label }}">
+                                <option value="AM">作品追加の希望</option>
+                                <option value="BM">画像パターン(背景)追加の希望</option>
+                                <option value="SP">バグ・システムの不具合</option>
+                                <option value="OT">その他</option>
+                            </select>
+                        {% else %}
+                            <label class="text-gray" for="{{ item.id_for_label }}">{{ item.label }}</label>
+                            <input type="{{ item.field.widget.input_type }}"
+                                   class="contact-input"
+                                   {% if item.field.required %}required{% endif %}
+                                   name="{{ item.name }}"
+                                   id="{{ item.id_for_label }}">
+                        {% endif %}
+                    {% else %}
+                        <label class="text-gray" for="{{ item.id_for_label }}">{{ item.label }}</label>
+                        <textarea type="{{ item.field.widget.input_type }}"
+                                  class="contact-message"
+                                  {% if item.field.required %}required{% endif %}
+                                  name="{{ item.name }}"
+                                  id="{{ item.id_for_label }}"></textarea>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary contact-button" onsubmit="alertContactedUs()">送信</button>
+        </form>
+    </div>
+{% endblock %}

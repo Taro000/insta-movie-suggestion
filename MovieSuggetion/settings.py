@@ -77,19 +77,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'MovieSuggetion.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    }
-}
-
-db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default'].update(db_from_env)
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -123,17 +110,31 @@ USE_L10N = True
 USE_TZ = True
 
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
 # SECURITY WARNING: keep the secret key used in production secret!
-if DEBUG:
-    # SECRET_KEY = os.environ['SECRET_KEY']
-    SECRET_KEY = 'sg4&vtj7avt#1ss^$3nd9pohb4di#v2f4$lt@gf2xh+5-72rkj'
+if not DEBUG:
+    SECRET_KEY = os.environ['SECRET_KEY']
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+    # Database
+    # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        }
+    }
+
+    db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
+
     import django_heroku
     django_heroku.settings(locals())
+else:
+    try:
+        from .local_settings import *
+    except ImportError:
+        pass
 
 
 # Static files (CSS, JavaScript, Images)
@@ -146,16 +147,9 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-if not DEBUG:
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = S3_URL
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    MEDIA_URL = S3_URL
-
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
-else:
-    MEDIA_URL = '/media/'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None

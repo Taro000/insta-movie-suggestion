@@ -84,6 +84,49 @@ a:hover {
     color: rgb(244, 244, 244);
 }
 
+.contact-input {
+    width: 100%;
+    background-color: rgb(153, 153, 153);
+    border: 0.2px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    height: 45px;
+}
+
+.contact-input:focus {
+    border: 0.2px solid rgb(237, 136, 78);
+    box-shadow: 0 0 8px 0 rgb(237, 136, 78);
+}
+
+.contact-message {
+    width: 100%;
+    background-color: rgb(153, 153, 153);
+    border: 0.2px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    height: 150px;
+}
+
+.contact-message:focus {
+    border: 0.2px solid rgb(237, 136, 78);
+    box-shadow: 0 0 8px 0 rgb(237, 136, 78);
+}
+
+.contact-button {
+    background-color: rgb(153, 153, 153);
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    height: 45px;
+}
+
+.contact-button:hover {
+    background-color: rgb(237, 136, 78);
+    color: rgb(244, 244, 244);
+}
+
 .text-white {
     color: rgb(244, 244, 244);
 }
@@ -100,4 +143,80 @@ a:hover {
     overflow-x: auto;
     display: flex;
     -webkit-overflow-scrolling: touch;
+}
+
+.story_button {
+    border-radius: 4px;
+    outline: none;
+    border: 0.2px solid rgb(153, 153, 153);
+}
+
+.story_button:hover {
+    border: solid 0.5px rgb(237, 136, 78);
+    box-shadow: 0 0 8px 0 rgb(237, 136, 78);
+}
+
+header {
+    background-color: rgb(37, 39, 40);
+    height: 100px;
+    box-shadow: 0 3px 6px rgb(237, 136, 78);
+}
+
+footer {
+    background-color: rgb(153, 153, 153);
+    height: 250px;
+    margin-top: 100px;
+    width: 100%;
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+}
+
+body {
+    min-height: 100vh;
+    position: relative;/*←相対位置*/
+    padding-bottom: 350px;/*←footerの高さ*/
+    box-sizing: border-box;
+}
+
+.footer-text {
+    color: rgb(37, 39, 40);
+}
+
+.footer-text:hover {
+    color: rgb(237, 136, 78);
+}
+
+/*ローディング*/
+.loader {
+  align-items: center;
+  background: rgb(37, 39, 40);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+
+.loader:after {
+    animation: loader 0.5s linear infinite;
+    border: 5px solid rgb(237, 136, 78);
+    border-radius: 50%;
+    border-right: 1px solid rgba(237, 136, 78, 0.2);
+    border-top: 1px solid rgba(237, 136, 78, 0.2);
+    content: "";
+    height: 70px;
+    width: 70px;
+  }
+
+@keyframes loader {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

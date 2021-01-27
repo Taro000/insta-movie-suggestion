@@ -9,47 +9,55 @@
     <link rel="stylesheet" href={% static 'css/custome_style.css' %}>
 </head>
 <body>
-<h1 class="text-center logo-text py-5 my-5 display-1">MShare</h1>
-<h1 class="text-white my-5 display-4">タイトル検索</h1>
-<form class="form-inline search-form" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn mx-3">検索</button>
-</form>
-<p class="text-gray pt-5">作品数：1000件</p>
-<ul class="list-group list-group-horizontal-md py-2">
-    <li class="list-group-item netflix-li">Netflix 対応</li>
-    <li class="list-group-item prime-li mx-3">PrimeVideo 対応</li>
-</ul>
-<h4 class="text-center mt-5 pt-5 text-gray">お知らせ</h4>
-<ul class="list-group my-5">
-    <li class="list-group-item notice-li mb-1">
+<div class="container">
+    <h1 class="text-center logo-text py-5 my-5 display-1">35.com</h1>
+    <h1 class="text-white my-5 display-4">タイトル検索</h1>
+    <form class="form-inline search-form" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn mx-3">検索</button>
+    </form>
+    <p class="text-gray pt-5">作品数：{{ num_movie }}件</p>
+    <ul class="list-group list-group-horizontal-md py-2">
+        <li class="list-group-item netflix-li">Netflix 対応</li>
+        <li class="list-group-item prime-li mx-3">PrimeVideo 対応</li>
+    </ul>
+    <h4 class="text-center mt-5 pt-5 text-gray">お知らせ</h4>
+    <ul class="list-group my-5">
+        {% for notice in notice_list %}
+            <a href="{% url 'notice_detail' notice.id %}">
+                <li class="list-group-item notice-li mb-1">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="text-gray no-margin">{{ notice.title|truncatechars:10 }}</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-gray no-margin">{{ notice.updated_at|date:'Y-m-d' }}</p>
+                        </div>
+                    </div>
+                </li>
+            </a>
+        {% endfor %}
+        <li class="mt-2">
+            <a href="{% url 'notices' %}"><p class="text-right text-gray text-hover-orange no-margin">もっとみる...</p></a>
+        </li>
+    </ul>
+</div>
+<footer>
+    <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <h5 class="text-gray no-margin">テスト投稿</h5>
+            <div class="col-md-4 my-5">
+                <h3>35.com</h3>
+                <p>お気に入りの映画やドラマをストーリーで共有しましょう！お洒落な画像を自動生成します。</p>
             </div>
-            <div class="col-md-4">
-                <p class="text-gray no-margin">2021-01-01</p>
+            <div class="col-md-4 my-5">
+            </div>
+            <div class="col-md-4 my-5">
+                <a href="{% url 'contact_us' %}"><h6 class="footer-text">お問い合わせ</h6></a>
+                <h6>このサイトについて</h6>
             </div>
         </div>
-    </li>
-    {% for notice in notice_list %}
-        <a href="{% url 'notice_detail' notice.id %}">
-            <li class="list-group-item notice-li mb-1">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h5 class="text-gray no-margin">{{ notice.title|truncatechars:10 }}</h5>
-                    </div>
-                    <div class="col-md-4">
-                        <p class="text-gray no-margin">{{ notice.updated_at|date:'Y-m-d' }}</p>
-                    </div>
-                </div>
-            </li>
-        </a>
-    {% endfor %}
-    <li class="mt-2">
-        <a href="{% url 'notices' %}"><p class="text-right text-gray text-hover-orange no-margin">もっとみる...</p></a>
-    </li>
-</ul>
+    </div>
+</footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

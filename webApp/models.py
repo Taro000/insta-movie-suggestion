@@ -23,7 +23,7 @@ class SiteConfig(models.Model):
 
 
 class Movie(models.Model):
-    id = models.UUIDField(primary_key=True, editable=False)
+    id = models.UUIDField(primary_key=True)
     title = models.CharField('タイトル', max_length=128)
     title_ja = models.CharField('日本語タイトル', max_length=128)
     year = models.CharField('公開年', max_length=16)

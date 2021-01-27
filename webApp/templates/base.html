@@ -7,14 +7,32 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href={% static 'css/custome_style.css' %}>
+    <script type="text/javascript" src="{% static 'js/custom_js.js' %}"></script>
 </head>
 <body>
+    <header class="sticky-top d-flex align-items-center">
+        <a href="{% url 'index' %}" class="mx-auto"><h1 class="logo-text mb-0">35.com</h1></a>
+    </header>
     {% block contents %}
     {% endblock %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 my-5">
+                    <h3>35.com</h3>
+                    <p>お気に入りの映画やドラマをストーリーで共有しましょう！お洒落な画像を自動生成します。</p>
+                </div>
+                <div class="col-md-4 my-5">
+                </div>
+                <div class="col-md-4 my-5">
+                    <a href="{% url 'contact_us' %}"><h6 class="footer-text">お問い合わせ</h6></a>
+                    <h6>このサイトについて</h6>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    {% block custome_js %}
-    {% endblock %}
 </body>
 </html>

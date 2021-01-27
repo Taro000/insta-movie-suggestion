@@ -2,48 +2,55 @@
 {% load static %}
 
 {% block contents %}
+    <div id="js-loader" class="loader"></div>
     <div class="container">
-        <img id="story_image">
-        <ul class="story_menu">
-            <li class="story_button"><button type="submit" onclick="ajaxImage('normal')">スタイル１</button></li>
-            <li class="story_button"><button type="submit" onclick="ajaxImage('cover')">スタイル２</button></li>
-            <li class="story_button"><button type="submit" onclick="ajaxImage('black')">ブラック</button></li>
-            <li class="story_button"><button type="submit" onclick="ajaxImage('white')">ホワイト</button></li>
-        </ul>
+        <img id="storyImage" class="d-block mx-auto my-5" src="data:image/png;base64, {{ base64_img }}" style="height: 1200px">
+        <div class="row my-5 py-5">
+            <div class="col-md-3">
+{#                <button class="d-block mx-auto story_button" type="submit" onclick="ajaxImage('normal', '{{ movie.id }}');">スタイル１</button>#}
+                <a href="{% url 'movie_detail' movie.id %}?keyword={{ keyword }}"><h2 class="text-center story_button text-white py-1 mb-0">Style 1</h2></a>
+                <p class="text-gray">※押すと背景色を変えられます</p>
+            </div>
+            <div class="col-md-3">
+{#                <button class="d-block mx-auto story_button" type="submit" onclick="ajaxImage('cover', '{{ movie.id }}');">スタイル２</button>#}
+                <a href="{% url 'movie_detail_cover' movie.id %}?keyword={{ keyword }}"><h2 class="text-center story_button text-white py-1 mb-0">Style 2</h2></a>
+            </div>
+            <div class="col-md-3">
+{#                <button class="d-block mx-auto" type="submit" onclick="ajaxImage('black', '{{ movie.id }}');">ブラック</button>#}
+                <a href="{% url 'movie_detail_black' movie.id %}?keyword={{ keyword }}"><h2 class="text-center story_button text-white py-1 mb-0">Black</h2></a>
+            </div>
+            <div class="col-md-3">
+{#                <button class="d-block mx-auto" type="submit" onclick="ajaxImage('white', '{{ movie.id }}');">ホワイト</button>#}
+                <a href="{% url 'movie_detail_white' movie.id %}?keyword={{ keyword }}"><h2 class="text-center story_button text-white py-1 mb-0">White</h2></a>
+            </div>
+        </div>
+        <h2 class="text-gray text-center my-5">画像の保存方法</h2>
+        <div class="row my-5">
+            <div class="col-md-6">
+                <h3 class="text-gray text-center">iPhoneの場合</h3>
+                <p class="text-gray my-5 text-center">①画像を長押し<br>②「写真に追加」をクリック</p>
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-gray text-center">Androidの場合</h3>
+                <p class="text-gray my-5 text-center">①画像を長押し<br>②「画像を保存」をクリック</p>
+            </div>
+        </div>
+        <a href="{% url 'searched_movies' %}?keyword={{ keyword }}" class="text-center"><h6 class="text-gray text-hover-orange">検索結果一覧に戻る</h6></a>
     </div>
-{% endblock %}
-{% block custome_js %}
     <script>
-        function ajaxImage(story_code) {
-            function parse_cookies() {
-                var cookies = {};
-                if (document.cookie && document.cookie !== '') {
-                    document.cookie.split(';').forEach(function (c) {
-                        var m = c.trim().match(/(\w+)=(.*)/);
-                        if (m !== undefined) {
-                            cookies[m[1]] = decodeURIComponent(m[2]);
-                        }
-                    });
-                }
-                return cookies
+        const loader = document.getElementById('js-loader');
+        window.addEventListener('load', () => {
+            const ms = 400;
+            loader.style.transition = 'opacity ' + ms + 'ms';
+
+            const loaderOpacity = function () {
+                loader.style.opacity = 0;
             }
-            var cookies = parse_cookies();
-            console.log(cookies);
-            var storyCode = {'story_code': story_code};
-            var xhr = new XMLHttpRequest();
-
-            xhr.open("POST", "/searched_movies/"+{{ movie.id }});
-            xhr.setRequestHeader('X-CSRFToken', cookies['csrftoken']);
-            xhr.send({storyCode});
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    alert('status code is 200. \n Your responseText is: ' + xhr.responseText);
-                }
-                else if (xhr.status !== 200) {
-                    alert('Request failed.  Returned status of ' + xhr.status);
-                }
-            };
-        }
+            const loaderDisplay = function () {
+                loader.style.display = 'none';
+            }
+            setTimeout(loaderOpacity, 1);
+            setTimeout(loaderDisplay, ms);
+        });
     </script>
 {% endblock %}
