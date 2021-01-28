@@ -4,7 +4,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href={% static 'css/custome_style.css' %}>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -58,17 +58,10 @@
     <ul class="movie-ul my-5">
         {% for movie in movie_list %}
             <li class="movie-li py-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <div style="height: 370px; width: 100%; background-image: url('{{ media_url }}{{ movie.img_path }}'); background-repeat: no-repeat; background-size:cover; background-position:center;"></div>
-                    </div>
-                    <div class="col-md-8 px-5">
-                        <a href="{% url 'movie_detail' movie.id %}?keyword={{ keyword }}">
-                            <h4 class="text-white">{{ movie.title|truncatechars:25 }}</h4>
-                            <h6 class="text-gray">{{ movie.year }}</h6>
-                        </a>
-                    </div>
-                </div>
+                <a href="{% url 'movie_detail' movie.id %}?keyword={{ keyword }}">
+                    <h3 class="movies-text text-hover-orange mx-3">{{ movie.title_ja|truncatechars:25 }}</h3>
+                    <h5 class="text-gray mx-3">{{ movie.year }}</h5>
+                </a>
             </li>
         {% endfor %}
     </ul>

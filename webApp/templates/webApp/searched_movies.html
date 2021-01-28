@@ -2,6 +2,7 @@
 {% load mathfilters %}
 {% load static %}
 
+{% block title %}検索：{{ keyword }}{% endblock %}
 {% block contents %}
     <div class="container">
         <form class="form-inline search-form py-5" method="post">{% csrf_token %}
@@ -19,17 +20,10 @@
         <ul class="movie-ul">
             {% for movie in page_obj.object_list %}
                 <li class="movie-li py-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <div style="height: 370px; width: 100%; background-image: url('{{ media_url }}{{ movie.img_path }}'); background-repeat: no-repeat; background-size:cover; background-position:center;"></div>
-                        </div>
-                        <div class="col-md-8 px-5">
-                            <a href="{% url 'movie_detail' movie.id %}?keyword={{ keyword }}">
-                                <h4 class="text-white">{{ movie.title|truncatechars:25 }}</h4>
-                                <h6 class="text-gray">{{ movie.year }}</h6>
-                            </a>
-                        </div>
-                    </div>
+                    <a href="{% url 'movie_detail' movie.id %}?keyword={{ keyword }}">
+                        <h3 class="movies-text text-hover-orange mx-3">{{ movie.title_ja|truncatechars:25 }}</h3>
+                        <h5 class="text-gray mx-3">{{ movie.year }}</h5>
+                    </a>
                 </li>
             {% endfor %}
         </ul>
